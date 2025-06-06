@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expanding Portfolio with Carousel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="portfolioContainer" class="portfolio-container">
+        </div>
+
+    <script>
+        const portfolioContainer = document.getElementById('portfolioContainer');
+        const items = [ 
+            {
+                name: 'About Me',
+                image: 'https://placehold.co/1200x800/3498db/ffffff?text=About+Me+BG&font=inter',
+                description: 'A passionate web developer focused on creating interactive and user-friendly digital experiences. Always eager to learn and apply new technologies to solve real-world problems and build cool stuff.',
+                additionalMedia: [
+                    { type: 'image', src: 'https://placehold.co/800x1000/3498db/ffffff?text=Skillset+Portrait&font=inter' },
+                    { type: 'image', src: 'https://placehold.co/1000x600/2ecc71/ffffff?text=Hobbies+Landscape&font=inter' },
+                    { type: 'image', src: 'https://placehold.co/1200x400/f39c12/ffffff?text=Contact+Info+Wide&font=inter' }
+                ]
+            },
+            {
+                name: 'Project Alpha',
+                image: 'https://placehold.co/1200x800/e74c3c/ffffff?text=Alpha+Main&font=inter',
+                description: 'Project Alpha explored advanced backend systems using Node.js and Express, with a MongoDB database. Focused on API design and data security. The visuals should do most of the talking.',
+                additionalMedia: [
+                    { type: 'image', src: 'https://placehold.co/1000x800/e74c3c/ffffff?text=Alpha+Screenshot+1&font=inter' },
+                    { type: 'video', src: 'https://www.youtube.com/embed/dQw4w9WgXcQ', title: 'Alpha Demo Video' }, 
+                    { type: 'image', src: 'https://placehold.co/600x800/2ecc71/ffffff?text=Alpha+Arch+Portrait&font=inter' },
+                    { type: 'image', src: 'https://placehold.co/1600x800/9b59b6/ffffff?text=Alpha+Code+Wide&font=inter' }
+                ]
+            },
+            {
+                name: 'Project Beta',
+                image: 'https://placehold.co/1000x800/2ecc71/ffffff?text=Beta+Cover&font=inter',
+                description: 'A responsive front-end application built with React and Tailwind CSS, emphasizing a seamless user interface and component-based architecture.',
+                additionalMedia: [
+                    { type: 'image', src: 'https://placehold.co/1000x800/2ecc71/ffffff?text=Beta+UI+Mockup&font=inter' },
+                    { type: 'image', src: 'https://placehold.co/1200x600/3498db/ffffff?text=Beta+Component+Lib&font=inter' },
+                    { type: 'image', src: 'https://placehold.co/800x1000/f1c40f/ffffff?text=Beta+Mobile+Portrait&font=inter' }
+                ]
+            },
+            {
+                name: 'Project Gamma',
+                image: 'https://placehold.co/1200x900/f39c12/ffffff?text=Gamma+Feature&font=inter',
+                description: 'This project involved machine learning with Python (Scikit-learn, Pandas) to develop a recommendation engine. Data analysis and model training were key aspects.',
+                additionalMedia: [
+                    { type: 'image', src: 'https://placehold.co/1200x800/f39c12/ffffff?text=Gamma+Data+Viz&font=inter' },
+                    { type: 'image', src: 'https://placehold.co/700x900/e74c3c/ffffff?text=Gamma+Algo+Portrait&font=inter' },
+                    { type: 'video', src: 'https://www.youtube.com/embed/L_LUpnjgPso', title: 'Gamma ML Process' } 
+                ]
+            },
+             {
+                name: 'Project Delta',
+                image: 'https://placehold.co/1000x750/9b59b6/ffffff?text=Delta+App&font=inter',
+                description: 'A mobile application for Android developed using Kotlin, featuring real-time data synchronization with Firebase and a clean, intuitive user experience.',
+                additionalMedia: [
+                    { type: 'image', src: 'https://placehold.co/1000x700/9b59b6/ffffff?text=Delta+Screen+1&font=inter' },
+                    { type: 'image', src: 'https://placehold.co/1400x700/34495e/ffffff?text=Delta+Screen+2+Wide&font=inter' },
+                    { type: 'image', src: 'https://placehold.co/800x1000/16a085/ffffff?text=Delta+Firebase+Portrait&font=inter' }
+                ]
+            },
+            {
+                name: 'Creative Works',
+                image: 'https://placehold.co/1200x800/1abc9c/ffffff?text=Creative+Gallery&font=inter',
+                description: 'A collection of personal creative projects, including digital art, graphic design, and photography. Exploring different styles and mediums.',
+                additionalMedia: [
+                    { type: 'image', src: 'https://placehold.co/1000x800/1abc9c/ffffff?text=Artwork+1&font=inter' },
+                    { type: 'image', src: 'https://placehold.co/900x1200/27ae60/ffffff?text=Artwork+2+Tall&font=inter' },
+                    { type: 'image', src: 'https://placehold.co/1200x700/8e44ad/ffffff?text=Design+Piece&font=inter' }
+                ]
+            },
+            {
+                name: 'Side Project X',
+                image: 'https://placehold.co/1200x800/7f8c8d/ffffff?text=WebGL+Experiment&font=inter',
+                description: 'An experimental project using WebGL and Three.js to create interactive 3D visualizations. Focused on learning 3D rendering concepts in the browser.',
+                additionalMedia: [
+                    { type: 'image', src: 'https://placehold.co/1000x800/7f8c8d/ffffff?text=3D+Model+View&font=inter' },
+                    { type: 'image', src: 'https://placehold.co/1500x600/c0392b/ffffff?text=Shader+Effect+Wide&font=inter' }
+                ]
+            },
+            {
+                name: 'Side Project Y',
+                image: 'https://placehold.co/1200x800/d35400/ffffff?text=Python+Utility&font=inter',
+                description: 'A small utility tool built with Python and Flask, designed to automate a repetitive task. Emphasized simplicity, efficiency, and command-line usability.',
+                additionalMedia: [
+                    { type: 'image', src: 'https://placehold.co/1000x800/d35400/ffffff?text=Tool+Interface&font=inter' },
+                    { type: 'image', src: 'https://placehold.co/800x1000/2980b9/ffffff?text=Code+Structure+Portrait&font=inter' }
+                ]
+            },
+            { /* MODIFIED: Added 9th item */
+                name: 'Project Zeta',
+                image: 'https://placehold.co/1200x800/2c3e50/ffffff?text=Zeta+Concept&font=inter',
+                description: 'Project Zeta is a forward-thinking exploration into decentralized applications (DApps) and their potential impact on future web technologies.',
+                additionalMedia: [
+                    { type: 'image', src: 'https://placehold.co/1000x800/2c3e50/ffffff?text=Zeta+Whitepaper&font=inter' },
+                    { type: 'image', src: 'https://placehold.co/1100x800/34495e/ffffff?text=Zeta+UI+Flow&font=inter' }
+                ]
+            }
+        ];
+
+        function createPortfolioRows() {
+            items.forEach((item, index) => {
+                const row = document.createElement('div');
+                row.classList.add('portfolio-row');
+                row.dataset.originalImageUrl = item.image; 
+                row.dataset.index = index;
+
+                const bgImageHolder = document.createElement('div');
+                bgImageHolder.classList.add('row-background-image-holder');
+                bgImageHolder.style.backgroundImage = `url('${item.image}')`;
+                row.appendChild(bgImageHolder);
+
+                const titleOverlay = document.createElement('div');
+                titleOverlay.classList.add('title-overlay');
+                const titleElement = document.createElement('h2');
+                titleElement.classList.add('title');
+                titleElement.textContent = item.name;
+                titleOverlay.appendChild(titleElement);
+                row.appendChild(titleOverlay);
+
+                const expandedContentElement = document.createElement('div');
+                expandedContentElement.classList.add('expanded-content');
+                row.appendChild(expandedContentElement); 
+                portfolioContainer.appendChild(row);
+
+                row.addEventListener('click', function(event) {
+                    if (this.classList.contains('expanded')) {
+                        return;
+                    }
+                    handleRowClick(this);
+                });
+            });
+        }
+
+        function buildExpandedContent(rowElement, itemData) {
+            let expandedContentElement = rowElement.querySelector('.expanded-content');
+            expandedContentElement.innerHTML = ''; 
+
+            const currentProjectTitle = document.createElement('h3');
+            currentProjectTitle.classList.add('current-project-title');
+            currentProjectTitle.textContent = itemData.name;
+            
+            currentProjectTitle.addEventListener('click', function(event) {
+                event.stopPropagation(); 
+                const allRows = document.querySelectorAll('.portfolio-row');
+                allRows.forEach(r => {
+                    r.classList.remove('expanded', 'collapsed');
+                    const expContent = r.querySelector('.expanded-content');
+                    if (expContent) expContent.classList.remove('visible');
+                    const firstCarouselImg = r.querySelector('.carousel-item:first-child img');
+                    if(firstCarouselImg) firstCarouselImg.style.opacity = '0';
+                    const carouselWrapperEl = r.querySelector('.carousel-wrapper');
+                    if(carouselWrapperEl) carouselWrapperEl.style.transform = 'translateX(100%)';
+                });
+            });
+            expandedContentElement.appendChild(currentProjectTitle);
+
+            const carouselWrapper = document.createElement('div');
+            carouselWrapper.classList.add('carousel-wrapper');
+            const carouselTrack = document.createElement('div');
+            carouselTrack.classList.add('carousel-track');
+
+            let isDown = false;
+            let startX;
+            let scrollLeftCurrent;
+
+            const startDragging = (e) => {
+                isDown = true;
+                carouselWrapper.classList.add('grabbing');
+                startX = (e.pageX || e.touches[0].pageX) - carouselWrapper.offsetLeft;
+                scrollLeftCurrent = carouselWrapper.scrollLeft;
+                e.preventDefault(); 
+            };
+
+            const stopDragging = () => {
+                isDown = false;
+                carouselWrapper.classList.remove('grabbing');
+            };
+
+            const whileDragging = (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = (e.pageX || e.touches[0].pageX) - carouselWrapper.offsetLeft;
+                const walk = (x - startX) * 1.5; 
+                carouselWrapper.scrollLeft = scrollLeftCurrent - walk;
+            };
+
+            carouselWrapper.addEventListener('mousedown', startDragging);
+            carouselWrapper.addEventListener('touchstart', startDragging, { passive: false }); 
+
+            carouselWrapper.addEventListener('mouseleave', stopDragging);
+            window.addEventListener('mouseup', stopDragging); 
+            window.addEventListener('touchend', stopDragging);
+
+            carouselWrapper.addEventListener('mousemove', whileDragging);
+            window.addEventListener('touchmove', whileDragging, { passive: false }); 
+
+            const mainCarouselItem = document.createElement('div');
+            mainCarouselItem.classList.add('carousel-item');
+            const mainImg = document.createElement('img');
+            mainImg.src = itemData.image; 
+            mainImg.alt = itemData.name + " main visual";
+            mainImg.style.opacity = '0'; 
+            mainCarouselItem.appendChild(mainImg);
+            carouselTrack.appendChild(mainCarouselItem);
+
+            if (itemData.additionalMedia && itemData.additionalMedia.length > 0) {
+                itemData.additionalMedia.forEach(media => {
+                    const mediaItemDiv = document.createElement('div');
+                    mediaItemDiv.classList.add('carousel-item');
+                    if (media.type === 'image') {
+                        const img = document.createElement('img');
+                        img.src = media.src;
+                        img.alt = itemData.name + " " + media.type;
+                        mediaItemDiv.appendChild(img);
+                    } else if (media.type === 'video') {
+                        const iframe = document.createElement('iframe');
+                        iframe.src = media.src; 
+                        iframe.title = media.title || (itemData.name + " video");
+                        iframe.setAttribute('frameborder', '0');
+                        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                        iframe.setAttribute('allowfullscreen', '');
+                        mediaItemDiv.appendChild(iframe);
+                    }
+                    carouselTrack.appendChild(mediaItemDiv);
+                });
+            }
+            carouselWrapper.appendChild(carouselTrack);
+            expandedContentElement.appendChild(carouselWrapper);
+
+            const projectDescription = document.createElement('p');
+            projectDescription.classList.add('project-description');
+            projectDescription.textContent = itemData.description;
+            expandedContentElement.appendChild(projectDescription);
+        }
+
+        function handleRowClick(clickedRow) {
+            const isAlreadyExpanded = clickedRow.classList.contains('expanded');
+            if(isAlreadyExpanded) return; 
+
+            const allRows = document.querySelectorAll('.portfolio-row');
+            const itemIndex = parseInt(clickedRow.dataset.index);
+            const itemData = items[itemIndex];
+
+            allRows.forEach(r => {
+                if (r !== clickedRow) {
+                    r.classList.remove('expanded');
+                    r.classList.add('collapsed');
+                    const expandedContent = r.querySelector('.expanded-content');
+                    if (expandedContent) expandedContent.classList.remove('visible');
+                    const firstCarouselImg = r.querySelector('.carousel-item:first-child img');
+                    if(firstCarouselImg) firstCarouselImg.style.opacity = '0';
+                    const carouselWrapper = r.querySelector('.carousel-wrapper');
+                    if(carouselWrapper) carouselWrapper.style.transform = 'translateX(100%)'; 
+                }
+            });
+
+            buildExpandedContent(clickedRow, itemData); 
+            
+            clickedRow.classList.remove('collapsed');
+            clickedRow.classList.add('expanded');
+
+            requestAnimationFrame(() => { 
+                requestAnimationFrame(() => { 
+                    const expandedContent = clickedRow.querySelector('.expanded-content');
+                    expandedContent.classList.add('visible'); 
+
+                    const firstCarouselItemImage = clickedRow.querySelector('.carousel-track .carousel-item:first-child img');
+                    if (firstCarouselItemImage) {
+                        setTimeout(() => {
+                            firstCarouselItemImage.style.opacity = '1';
+                        }, 300); 
+                    }
+
+                    const carouselWrapper = expandedContent.querySelector('.carousel-wrapper');
+                    const firstCarouselItem = expandedContent.querySelector('.carousel-track .carousel-item:first-child');
+                    
+                    if (carouselWrapper && firstCarouselItem) {
+                        setTimeout(() => {
+                            let scrollTarget = firstCarouselItem.offsetLeft - (carouselWrapper.offsetWidth / 2) + (firstCarouselItem.offsetWidth / 2);
+                            scrollTarget = Math.max(0, scrollTarget); 
+                            carouselWrapper.scrollTo({ left: scrollTarget, behavior: 'smooth' }); 
+                        }, 50 + 150); 
+                    }
+
+                    setTimeout(() => {
+                        clickedRow.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 75); 
+                });
+            });
+        }
+        createPortfolioRows();
+    </script>
+
+</body>
+</html>
