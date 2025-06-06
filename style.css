@@ -1,11 +1,11 @@
- <style>
+    <style>
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
             overflow: hidden; 
             background-color: #111827;
             color: white;
-            user-select: none; /* Prevent text selection during drag */
+            user-select: none;
         }
         .portfolio-container {
             display: flex;
@@ -16,11 +16,11 @@
         .portfolio-row {
             flex-grow: 1; 
             flex-shrink: 1; 
-            flex-basis: calc(100vh / 9); /* MODIFIED: Base size for 9 rows */
+            flex-basis: calc(100vh / 9);
             position: relative;
             overflow: hidden;
             cursor: pointer;
-            transition: flex-grow 0.35s ease-in-out, flex-basis 0.35s ease-in-out, height 0.35s ease-in-out; 
+            transition: flex-grow 0.35s ease-in-out, flex-basis 0.35s ease-in-out; 
             background-color: #111827; 
             display: flex;
             align-items: center;
@@ -70,9 +70,9 @@
 
         /* Expanded state */
         .portfolio-row.expanded {
-            flex-grow: 0;  
-            flex-shrink: 0; 
-            height: 85vh; 
+            flex-grow: 10; 
+            flex-shrink: 1; 
+            height: auto; 
             flex-basis: 85vh; 
             cursor: default; 
         }
@@ -88,7 +88,8 @@
         .portfolio-row.collapsed {
             flex-grow: 1; 
             flex-shrink: 1; 
-            flex-basis: calc((100vh - 85vh) / 8); /* MODIFIED: Divided by 8 for 8 collapsed rows */
+            height: auto; 
+            flex-basis: calc((100vh - 85vh) / 8); 
         }
         .portfolio-row.collapsed .row-background-image-holder {
             opacity: 1; 
@@ -103,27 +104,7 @@
             font-size: 1.2vw;
             opacity: 0.8;
         }
-
-        /* Hover effect for rows in their initial, un-collapsed, un-expanded state */
-        .portfolio-row:not(.expanded):not(.collapsed):hover {
-            flex-grow: 1; 
-            flex-basis: calc((100vh / 9) * 2); /* MODIFIED: 100% taller than new base size */
-            z-index: 4; 
-        }
-        .portfolio-row:not(.expanded):not(.collapsed):hover .title-overlay {
-            background-color: transparent;
-        }
-
-        /* Hover effect for rows that are in the .collapsed state */
-        .portfolio-row.collapsed:hover { 
-            flex-grow: 2; 
-            flex-basis: 5vh; 
-            z-index: 4;
-        }
-        .portfolio-row.collapsed:hover .title-overlay {
-            background-color: transparent;
-        }
-
+        
         /* Expanded Content Area */
         .portfolio-row .expanded-content {
             width: 100%;
@@ -137,7 +118,8 @@
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; 
+            justify-content: center; 
+            align-items: center;
             opacity: 0; 
             overflow: hidden; 
             z-index: 3; 
@@ -152,15 +134,15 @@
             font-family: 'Inter', sans-serif; 
             font-weight: 700;
             font-size: clamp(1.8rem, 3.5vw, 2.8rem); 
-            margin-bottom: -1.5em; 
             text-align: center;
             width: 100%;
             color: #fff;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             z-index: 10; 
-            padding-bottom: 0.5em; 
             flex-shrink: 0; 
             cursor: pointer; 
+            margin-bottom: -1em; 
+            padding-bottom: 0.5em;
         }
 
         .carousel-wrapper {
@@ -172,7 +154,7 @@
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none; 
             -ms-overflow-style: none;  
-            flex-grow: 1; 
+            flex-shrink: 0; 
             display: flex; 
             align-items: center; 
             transform: translateX(100%);
@@ -191,6 +173,7 @@
 
         .carousel-track {
             display: flex;
+            align-items: center; 
             pointer-events: none; 
             padding-left: 25vw;  
             padding-right: 25vw; 
@@ -203,7 +186,7 @@
         .carousel-item {
             flex-shrink: 0;
             width: auto; 
-            height:65vh; 
+            height:60vh; 
             background-color: #2d3748; 
             overflow: hidden;
             display: flex;
@@ -224,16 +207,15 @@
         }
 
         .expanded-content .project-description {
-            font-size: clamp(0.75rem, 1.3vw, 0.9rem); 
-            line-height: 1.5;
-            color: #cbd5e0;
-            padding: 0 50px 50px 50px;
-            max-height: 8vh; 
-            overflow-y: auto;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 300;
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            line-height: 1.7;
+            color: #d1d5db;
             text-align: center;
-            margin-top: 5px; 
-            margin-bottom: 0; 
-            flex-shrink: 0; 
+            max-width: 65ch;
+            margin-top: 1rem;
+            flex-shrink: 0;
         }
 
         @keyframes fadeInContent {
@@ -243,38 +225,15 @@
 
         /* Mobile adjustments */
         @media (max-width: 768px) {
-            .portfolio-row {
-                flex-basis: calc(100vh / 9); /* MODIFIED for 9 rows */
-            }
+             .portfolio-row { flex-basis: calc(100vh / 9); }
             .portfolio-row .title { font-size: 5vw; }
-            .portfolio-row.expanded { 
-                height: 77.5vh; 
-                flex-basis: 77.5vh; 
-            } 
-            .portfolio-row.collapsed { 
-                flex-basis: calc((100vh - 77.5vh) / 8); /* MODIFIED for 8 collapsed rows */
-            } 
-            .portfolio-row.collapsed .title { 
-                font-size: 2.5vw; 
-            }
-            .expanded-content .current-project-title { 
-                font-size: clamp(1.5rem, 5vw, 2.2rem); 
-                margin-bottom: -0.75em; 
-            }
-            .carousel-item { 
-                width: auto; 
-                height: 45vh; 
-            }
-             .carousel-item:not(:last-child) {
-                margin-right: 10px; 
-            }
-            .carousel-track {
-                padding-left: 20vw; 
-                padding-right: 20vw;
-            }
-            .expanded-content .project-description { 
-                font-size: clamp(0.7rem, 2.8vw, 0.85rem); 
-                max-height: 7vh; 
-            }
+            .portfolio-row.expanded { flex-basis: 77.5vh; } 
+            .portfolio-row.collapsed { flex-basis: calc((100vh - 77.5vh) / 8); } 
+            .portfolio-row.collapsed .title { font-size: 2.5vw; }
+            .expanded-content .current-project-title { font-size: clamp(1.5rem, 5vw, 2.2rem); margin-bottom: -0.75em; }
+            .carousel-item { height: 45vh; }
+            .carousel-item:not(:last-child) { margin-right: 10px; }
+            .carousel-track { padding-left: 20vw; padding-right: 20vw; }
+            .expanded-content .project-description { font-size: clamp(0.7rem, 2.8vw, 0.85rem); max-height: 10vh; }
         }
     </style>
